@@ -4,6 +4,8 @@
 # MAGIC ##### Create service Principal
 # MAGIC ##### Assign blob account contributor role to service principal
 # MAGIC ##### Create Secret Vault set access mode to 'vault access policy' and add the service principal to a policy Azure RBAC might cause more complexity with access. 
+# MAGIC
+# MAGIC https://learn.microsoft.com/en-us/azure/databricks/connect/storage/azure-storage
 
 # COMMAND ----------
 
@@ -26,3 +28,11 @@ spark.conf.set("fs.azure.account.oauth2.client.endpoint.blobstorageaccountuba.df
 # COMMAND ----------
 
 dbutils.fs.ls("abfss://publicholidays@blobstorageaccountuba.dfs.core.windows.net")
+
+# COMMAND ----------
+
+display(dbutils.fs.ls('/'))
+
+# COMMAND ----------
+
+
