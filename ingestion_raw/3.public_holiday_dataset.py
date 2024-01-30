@@ -33,20 +33,24 @@ print('Remote blob path: ' + wasbs_path)
 # COMMAND ----------
 
 # SPARK read parquet, note that it won't load any data yet by now
-# Add ingestion_date column to the dataframe
+
 
 from pyspark.sql.functions import current_timestamp
 
 df = spark.read.parquet(wasbs_path)
+
+# Add ingestion_date column to the dataframe
 df = df.withColumn('ingestion_date', current_timestamp())
+
+#this step is not necessary, only shows how to easily convert a dataframe into a temporary view. If ommited raw data is still processed and copied into raw container
 print('Register the DataFrame as a SQL temporary view: source')
-df.createOrReplaceTempView('source')
+df.createOrReplaceTempView('source') 
 
 # COMMAND ----------
 
 # Display top 10 rows
-print('Displaying top 10 rows: ')
-display(spark.sql('SELECT * FROM source LIMIT 10'))
+print('Displaying top 1000 rows: ')
+display(spark.sql('SELECT * FROM source  ORDER BY DATE DESC LIMIT 1000'))
 
 # COMMAND ----------
 
